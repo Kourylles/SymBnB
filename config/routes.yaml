@@ -4,3 +4,16 @@
 homepage:
     path: /
     controller : App\Controller\HomeController::home
+
+ads_index:
+    path: /ads
+    controller : App\Controller\AdController::index
+
+ads_create:
+    path: /ads/new
+    controller: App\Controller\AdController::create
+
+ads_show :
+    path: /ads/{slug}
+    controller : App\Controller\AdController::show
+

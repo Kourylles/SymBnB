@@ -1,0 +1,23 @@
+
+/* Marge dans toutes les div de la classe "container" */
+div.container {
+    margin-top: 20px;
+}
+
+/* Espacement du texte au sein de la div dans laquel il se trouve*/
+div.ad-title {
+    padding : 2em;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* Texte du titre de l'affichage d'une annonce */
+div.ad-title h1, div.ad-title p{
+    color : white;
+    text-shadow: 3px 3px 3px rgb(0,0,0,0.5);
+}
+
+/* Texte des légendes sur les photos dans un carousel */
+div.carousel-caption {
+    text-shadow: 3px 3px 3px rgb(0,0,0,0.5);
+}
