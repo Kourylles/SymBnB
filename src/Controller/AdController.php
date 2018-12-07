@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
+use App\Entity\Image;
 use App\Form\AnnonceType;
 use App\Repository\AdRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,6 +63,13 @@ class AdController extends AbstractController {
 
         //Traitement du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //Préparer DOCTRINE à faire persister chaque image récupérées dans le AdType doit être persister
+            foreach ($ad->getImages() as $image) {
+                $image->setAd($ad);
+                $entityManager->persist($image);
+            }
+
             $entityManager->persist($ad);
             $entityManager->flush();
 

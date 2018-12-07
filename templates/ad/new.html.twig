@@ -2,6 +2,9 @@
 
 {% block title %} Création d'un annonce {% endblock %}
 
+{# Dire à Twig que nous voulons utiliser le theme défini dans ce fichier pour la variable form #}
+{% form_theme form _self %}
+
 {% block body %}
     <div class="container">
         <h1>Créer une nouvelle annonce</h1>
@@ -10,10 +13,82 @@
 
         {{ form_widget(form)}}
 
-        <button class="submit btn-primary">Créer la nouvelle Annonce</button>
+            <button class="submit btn-primary">Créer la nouvelle Annonce</button>
+
         {{ form_end(form)}}
 
 
     </div>
+
+{% endblock %}
+
+{# Création d'un themes pour le formulaire ImageType qui est injecté dans le formulaire AnnonceType #}
+{% block _annonce_images_widget %}
+    <p> Ajoutez vos images </p>
+    {{ form_widget(form)}}
+
+    <input type="hidden" id="widgets-counter" value="0">
+
+    <div class="form-group">
+        <button type="button" id="annonce-image" class"btn btn-primary"> Ajouter une Image</button>
+    </div>
+{% endblock %}
+
+{# Definir ce que l'on veut afficher dans le row (le row rend le lable, l'erreur et le champ) #}
+{% block _annonce_images_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{# Mise en forme des entry (des champs du formulaire ImageType qui est injecter) de la collection #}
+{% block _annonce_images_entry_widget %}
+<div class="form-group" id="block_{{id}}">
+    <div class="row">
+        <div class="col-10">
+            <div class="row">
+                <div class="col">
+                    {{ form_widget(form.url)}}
+                </div>
+                <div class="col">
+                {{ form_widget(form.caption)}}
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{# Ajout de code JavaScript afin de faire apparaitre dynamiquement les deux champs du formulaire ImageType #}
+{% block javascripts %}
+
+    <script>
+        $('#annonce-image').click(function(){
+            //Récupération le numéro des futurs champs à créer
+            const index = +$('#widgets-counter').val();
+
+            //Récupération du prototype(cf. documentation Symfony) à créer
+            const template = $('#annonce_images').data('prototype').replace(/__name__/g, index);
+
+            //injection du code récupérer dans la page 
+            $('#annonce_images').append(template);
+            $('#widgets-counter').val(index + 1);
+
+            //Gestion du bouton de suppression par appel à la fonction dédiée
+            HandleDeleteButtons();
+
+        });
+
+        //Gestion des boutons de suppression
+        function HandleDeleteButtons() {
+            $('button[data-action="delete"]').click(function(){
+                const target = this.dataset.target;
+                $(target).remove();
+            })
+        }
+
+        HandleDeleteButtons();
+    </script>
 
 {% endblock %}

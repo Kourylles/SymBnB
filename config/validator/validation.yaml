@@ -1,0 +1,52 @@
+App\Entity\Ad:
+    properties:
+        title:
+            - NotBlank: ~
+            -Type:
+                type: string
+            - Length: 
+                min: 10
+                max: 50
+                minMessage: 'Le Titre de votre Annonce doit comporter au moins {{ limit }} caractères !'
+                maxMessage: 'Le Titre de votre Annonce ne doit pas comporter plus de {{ limit }} caractères !'
+        introduction:
+            - NotBlank: ~
+            - Type:
+                type: string
+            - Length:
+                min: 20
+                max: 100
+                minMessage: 'Votre Introduction doit comporter au moins {{ limit }} caractères !'
+                maxMessage: 'Votre Introduction ne doit pas comporter plus de {{ limit }} caractères !'
+        content :
+            - Length:
+                min: 100
+                max: 255
+                minMessage: "Votre Description doit comporter au moins {{limit}} caractères !"
+                maxMessage: 'Votre Description ne doit pas comporter plus de {{ limit }} caractères !'
+        coverImage :
+            - Url:
+                message: "{{ value }} n'est pas une URL valide."
+        rooms :
+            - Type:
+                type: integer
+            - NotBlank: ~ 
+        price :
+            - Type:
+                type: float
+            - NotBlank: ~ 
+
+App\Entity\Image:
+    properties:
+        url :
+            - Url:
+                message: "{{ value }} n'est pas une URL valide."
+            - Type:
+                type: string
+        caption :
+            - NotBlank : ~
+        
+
+
+
+
