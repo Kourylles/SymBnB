@@ -4,10 +4,10 @@ namespace App\Form;
 
 use App\Entity\Image;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ImageType extends AbstractType
 {
@@ -15,21 +15,21 @@ class ImageType extends AbstractType
     {
         $builder
             ->add(
-                'url', 
-                UrlType::class,[
+                'url',
+                UrlType::class, [
                     'attr' => [
-                        'placeholder' => "Adresse de votre Image"
-                    ]
+                        'placeholder' => "Adresse de votre Image",
+                    ],
                 ])
 
             ->add(
                 'caption',
-                TextType::class,[
+                TextType::class, [
                     'attr' => [
-                        'placeholder' =>"Titre de votre Image"
-                    ]
+                        'placeholder' => "Titre de votre Image",
+                    ],
                 ])
-            
+
         ;
     }
 

@@ -2,7 +2,7 @@ App\Entity\Ad:
     properties:
         title:
             - NotBlank: ~
-            -Type:
+            - Type:
                 type: string
             - Length: 
                 min: 10
@@ -28,13 +28,13 @@ App\Entity\Ad:
             - Url:
                 message: "{{ value }} n'est pas une URL valide."
         rooms :
+            - NotBlank: ~ 
             - Type:
                 type: integer
-            - NotBlank: ~ 
         price :
+            - NotBlank: ~ 
             - Type:
                 type: float
-            - NotBlank: ~ 
 
 App\Entity\Image:
     properties:

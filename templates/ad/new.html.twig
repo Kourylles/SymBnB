@@ -16,8 +16,6 @@
             <button class="submit btn-primary">Créer la nouvelle Annonce</button>
 
         {{ form_end(form)}}
-
-
     </div>
 
 {% endblock %}
@@ -27,6 +25,7 @@
     <p> Ajoutez vos images </p>
     {{ form_widget(form)}}
 
+    {# Initialisation du compteur de widget du formulaire ImageType affiché#}
     <input type="hidden" id="widgets-counter" value="0">
 
     <div class="form-group">
@@ -34,7 +33,7 @@
     </div>
 {% endblock %}
 
-{# Definir ce que l'on veut afficher dans le row (le row rend le lable, l'erreur et le champ) #}
+{# Definir ce que l'on veut afficher dans le row (le row rend le label, l'erreur et le champ) #}
 {% block _annonce_images_entry_row %}
     {{ form_widget(form) }}
 {% endblock %}
@@ -65,14 +64,17 @@
 
     <script>
         $('#annonce-image').click(function(){
-            //Récupération le numéro des futurs champs à créer
+            /*Récupération le numéro des futurs champs à créer (Le + sert à indiquer à JavaScript que l'on
+                veut que la variable soit un nombre) */
             const index = +$('#widgets-counter').val();
 
-            //Récupération du prototype(cf. documentation Symfony) à créer
+            /*Récupération du code créér par prototype(cf. documentation Symfony) et 
+                remplacement du nom par le numéro récupéré par le compteur de widget */
             const template = $('#annonce_images').data('prototype').replace(/__name__/g, index);
 
-            //injection du code récupérer dans la page 
+            //Injection du code récupéré et stocker dans la variable template 
             $('#annonce_images').append(template);
+            //Incrémentation du compteur
             $('#widgets-counter').val(index + 1);
 
             //Gestion du bouton de suppression par appel à la fonction dédiée
@@ -87,7 +89,7 @@
                 $(target).remove();
             })
         }
-
+        //Appel de la fonction au cas où il existe déjà des image dans l'annonce que l'on affiche
         HandleDeleteButtons();
     </script>
 
